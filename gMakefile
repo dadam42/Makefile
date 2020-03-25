@@ -4,7 +4,8 @@ LIBS_DIRS=$(foreach lib,$(LIBS:lib%=%),$($(lib)_DIR))
 LDLIBS=$(LIBS_DIRS:%=-L%) $(LIBS:lib%=-l%) $(STDLIBS:lib%=-l%)
 LIBS_INCS=$(foreach lib,$(LIBS:lib%=%),$(if $($(lib)_INC),$($(lib)_INC),$($(lib)_DIR)))
 IFLAGS=$(SRCS_INCS:%=-I%) $(LIBS_INCS:%=-I%)
-CFLAGS=-Wall -Wextra -Werror $(IFLAGS)
+CFLAGS=-Wall -Wextra -Werror $(IFLAGS) $(DEBUG)
+export DEBUG
 empty=
 space=$(empty) $(empty)
 VPATH=$(subst $(space),:,$(SRCS_DIRS))
