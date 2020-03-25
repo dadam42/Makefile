@@ -19,6 +19,8 @@ endef
 .PHONY:all
 all:$(TARGET)
 
+bonus:$(TARGET)
+
 ifeq ($(RTARGET_TYPE),exe)
 $(TARGET):$(LIBS:%=%.a) $(SRCS:%.c=%.o)
 	gcc $(CFLAGS) $(SRCS:%.c=%.o)  -o $@ $(LDLIBS)
