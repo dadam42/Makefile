@@ -1,0 +1,21 @@
+#!/bin/bash
+
+cd "$(dirname "$0")"
+MYSCRIPT_DIR="$(pwd -P)"
+cd "${OLDPWD}"
+
+DROPPING_DIR="$(pwd)"
+cp "${MYSCRIPT_DIR}"/.Makefile/hMakefile ./Makefile
+while [ ! -d .d42Makefile ]
+	do
+		if [ "$(pwd)" = "/" ]; then
+			break
+		fi
+		cd ..
+	done
+if [ ! -d .d42Makefile ]; then
+	echo "Directory .d42Makefile directory not found in any ${DROPPING_DIR}'s parent. Check installation."
+	exit 1
+	fi
+REPLACE="GEN_MAKEFILE_PATH=$(pwd)/.d42Makefile"
+sed -i "s|#d42GEN_MAKEFILE_PATH|${REPLACE}|" "${DROPPING_DIR}"/Makefile

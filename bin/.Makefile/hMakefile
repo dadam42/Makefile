@@ -11,11 +11,10 @@ foo_INC=#optionnal, default to lib_DIR : dirname containing lib's headers files.
 SRCS=
 SRCS_DIRS=
 SRCS_INCS=.#
-#-- IMPORTANT GEN_MAKEFILE_PATH must reflect the relative or full path to genMakefile:
-GEN_MAKEFILE_PATH=../../../fw
 #
 #---- dont change anything after this
 #--------------------------------------------------------------------------------------
 
+#d42GEN_MAKEFILE_PATH
 include $(GEN_MAKEFILE_PATH)/genMakefile
 
