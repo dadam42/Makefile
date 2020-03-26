@@ -27,7 +27,7 @@ $(TARGET):$(LIBS:%=%.a) $(SRCS:%.c=%.o)
 	gcc $(CFLAGS) $(SRCS:%.c=%.o)  -o $@ $(LDLIBS)
 else
 $(TARGET): $(LIBS:%=%.a) $(SRCS:%.c=%.o)
-	$(foreach liba, $(filter %.a, $?), ar -x $(liba);)
+	$(foreach liba, $(filter %.a, $?), ar -x $($(liba:lib%.a=%)_DIR)/$(liba);)
 	ar -rc $@ *.o
 	ranlib $@
 endif
