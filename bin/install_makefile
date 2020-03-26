@@ -4,9 +4,10 @@ cd "$(dirname "$0")"
 MYSCRIPT_DIR="$(pwd -P)"
 cd "${OLDPWD}"
 
+PATH_TO_TEMPLATES="${MYSCRIPT_DIR}/.Makefile"
+
 if [ ! -d ".d42Makefile" ]; then
 	mkdir ".d42Makefile"
 fi
- 
-cp "${MYSCRIPT_DIR}"/.Makefile/gMakefile .d42Makefile/genMakefile
-
+echo "d42Makefile:0.1" > .d42Makefile/.version 
+cp "${PATH_TO_TEMPLATES}"/gMakefile .d42Makefile/genMakefile

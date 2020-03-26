@@ -4,8 +4,10 @@ cd "$(dirname "$0")"
 MYSCRIPT_DIR="$(pwd -P)"
 cd "${OLDPWD}"
 
+PATH_TO_TEMPLATES="${MYSCRIPT_DIR}/.Makefile"
+cp "${PATH_TO_TEMPLATES}"/hMakefile ./Makefile
+
 DROPPING_DIR="$(pwd)"
-cp "${MYSCRIPT_DIR}"/.Makefile/hMakefile ./Makefile
 while [ ! -d .d42Makefile ]
 	do
 		if [ "$(pwd)" = "/" ]; then
@@ -19,3 +21,5 @@ if [ ! -d .d42Makefile ]; then
 	fi
 REPLACE="GEN_MAKEFILE_PATH=$(pwd)/.d42Makefile"
 sed -i "s|#d42GEN_MAKEFILE_PATH|${REPLACE}|" "${DROPPING_DIR}"/Makefile
+cd "${DROPPING_DIR}"
+vim "${DROPPING_DIR}"/Makefile
