@@ -11,10 +11,10 @@ empty=
 space=$(empty) $(empty)
 VPATH=$(subst $(space),:,$(SRCS_DIRS))
 vpath lib%.a $(subst $(space),:,$(LIBS_DIRS))
-define libfclean_rule
-.PHONY:$(1).fclean
-$(1).fclean:
-	$$(MAKE) -C $$($(1:lib%=%)_DIR) fclean 
+define librfclean_rule
+.PHONY:$(1).rfclean
+$(1).rfclean:
+	$$(MAKE) -C $$($(1:lib%=%)_DIR) rfclean 
 
 endef
 
@@ -25,7 +25,7 @@ bonus:$(TARGET)
 
 ifeq ($(RTARGET_TYPE),exe)
 $(TARGET):$(LIBS:%=%.a) $(SRCS:%.c=%.o)
-	gcc $(CFLAGS) $(SRCS:%.c=%.o)  -o $@ $(LDLIBS)
+	$(CC) $(CFLAGS) $(SRCS:%.c=%.o)  -o $@ $(LDLIBS)
 else
 $(TARGET): $(LIBS:%=%.a) $(SRCS:%.c=%.o)
 	$(foreach liba, $(notdir $(filter %.a, $?)), ar -x $($(liba:lib%.a=%)_DIR)/$(liba);)
@@ -38,15 +38,22 @@ lib%.a:
 	$(MAKE) -C $($*_DIR)
 endif
 
-$(foreach lib,$(LIBS),$(eval $(call libfclean_rule, $(lib))))
+$(foreach lib,$(LIBS),$(eval $(call librfclean_rule, $(lib))))
 
 .PHONY:clean
 clean:
 	rm -f $(wildcard *.o)
 
+.PHONY: rfclean
+rfclean:$(LIBS:%=%.rfclean) clean
+	rm -f $(TARGET)
+
 .PHONY: fclean
-fclean:$(LIBS:%=%.fclean) clean
+fclean: clean
 	rm -f $(TARGET)
 
 .PHONY:re
 re:fclean $(TARGET)
+
+.PHONY:rre
+rre:rfclean $(TARGET)
