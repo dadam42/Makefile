@@ -62,7 +62,8 @@ define target_prerequisite
 $$($(1)_SRCS:%.c=%.o) $$($(1)_USELIBS:%=%.a)
 endef
 
-define usedlib_rule
+define ruselib_rule
+.PHONY:$(1).a
 $(1).a:
 	$$(MAKE) -C $$($(1)_MDIR) $(1).a
 endef
@@ -117,7 +118,7 @@ $(foreach target,$(EXETARGETS), $(eval $(call exetarget_rule,$(target))))
 
 $(foreach target,$(LIBTARGETS), $(eval $(call libtarget_rule,$(target))))
 
-$(foreach lib,$(USELIBS), $(eval $(call usedlib_rule,$(lib))))
+$(foreach lib,$(RUSELIBS), $(eval $(call ruselib_rule,$(lib))))
 
 $(foreach lib,$(RUSELIBS),$(eval $(call ruselib_rfclean_rule,$(lib))))
 
