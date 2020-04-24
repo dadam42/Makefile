@@ -12,7 +12,7 @@ do
 	if [ -d "$sub" ]
 	then
 		cp -r "$sub" ~/bin
-	else
+	else	
 		cp "$sub" ~/bin
 	fi
 done

@@ -13,7 +13,7 @@ if [ ! -d ".d42Makefile" ]; then
 fi
 
 echo "Copy genMakefile in .d42Makefile"
-echo "d42Makefile:0.2" > .d42Makefile/.version 
+echo "d42Makefile:1" > .d42Makefile/.version 
 cp "${PATH_TO_TEMPLATES}"/gMakefile .d42Makefile/genMakefile
 
 echo "Looking for git repository"
